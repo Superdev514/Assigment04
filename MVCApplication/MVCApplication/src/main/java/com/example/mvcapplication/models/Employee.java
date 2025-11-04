@@ -3,9 +3,13 @@ package com.example.mvcapplication.models;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 
 public class Employee {
     private final IntegerProperty id;
+
+
+
     private final StringProperty firstName;
     private final StringProperty lastName;
     private final DoubleProperty salary;
@@ -19,6 +23,9 @@ public class Employee {
         this.departmentId = new SimpleIntegerProperty(departmentId);
     }
 
+    public String getFirstName() {
+        return firstName.get();
+    }
     public IntegerProperty idProperty() {
         return id;
     }
@@ -46,5 +53,4 @@ public class Employee {
         );
         return employeeData;
     }
-
 }

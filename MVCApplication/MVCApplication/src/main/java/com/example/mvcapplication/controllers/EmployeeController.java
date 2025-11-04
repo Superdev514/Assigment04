@@ -10,7 +10,7 @@ public class EmployeeController {
 
     }
 
-    public ObservableList<Employee> getEmployees() {
+    public static ObservableList<Employee> getEmployees() {
         return Employee.getAllEmployees();
     }
 
