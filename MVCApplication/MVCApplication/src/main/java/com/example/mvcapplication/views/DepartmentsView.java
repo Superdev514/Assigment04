@@ -2,7 +2,7 @@ package com.example.mvcapplication.views;
 
 
 import com.example.mvcapplication.controllers.EmployeeController;
-import com.example.mvcapplication.models.Employee;
+import com.example.mvcapplication.models.Departments;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -11,8 +11,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class EmployeeView extends VBox {
-    private final TableView<Employee> tableView;
+public class DepartmentsView extends VBox {
+    private final TableView<Departments> tableView;
     private final EmployeeController controller;
 
     public EmployeeView(EmployeeController controller) {
@@ -37,8 +37,8 @@ public class EmployeeView extends VBox {
         searchBox.getChildren().add(seachButton);
 
         searchBox.setAlignment(Pos.BASELINE_LEFT);
-        this.getChildren().add(searchBox);
 
+        this.getChildren().add(searchBox);
         seachButton.setOnAction(event -> {
             String input = firstNameTxt.getText();
             ObservableList<Employee> allEmployees = EmployeeController.getEmployees();

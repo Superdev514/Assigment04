@@ -7,9 +7,6 @@ import javafx.scene.Node;
 
 public class Employee {
     private final IntegerProperty id;
-
-
-
     private final StringProperty firstName;
     private final StringProperty lastName;
     private final DoubleProperty salary;
@@ -45,6 +42,7 @@ public class Employee {
     public IntegerProperty departmentIdProperty() {
         return departmentId;
     }
+
     public static ObservableList<Employee> getAllEmployees(){
         ObservableList<Employee> employeeData = FXCollections.observableArrayList(
                 new Employee(1, "John", "Doe", 60000.00, 101),
