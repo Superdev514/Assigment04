@@ -1,6 +1,7 @@
 package com.example.mvcapplication.views;
 
 
+import com.example.mvcapplication.controllers.DepartmentController;
 import com.example.mvcapplication.controllers.EmployeeController;
 import com.example.mvcapplication.models.Departments;
 import javafx.collections.FXCollections;
@@ -13,9 +14,9 @@ import javafx.scene.layout.VBox;
 
 public class DepartmentsView extends VBox {
     private final TableView<Departments> tableView;
-    private final EmployeeController controller;
+    private final DepartmentController controller;
 
-    public EmployeeView(EmployeeController controller) {
+    public DepartmentsView(DepartmentController controller) {
         this.controller = controller;
         this.tableView = new TableView<>();
         buildInterface();
@@ -26,27 +27,27 @@ public class DepartmentsView extends VBox {
 
     public void buildInterface(){
 
-        Label firstNameLbl = new Label("First Name:");
-        TextField firstNameTxt = new TextField();
+        Label departmentNameLbl = new Label("Department Name:");
+        TextField departmentNameTxt = new TextField();
         Button seachButton = new Button("Search");
 
 
         HBox searchBox = new HBox(10);
-        searchBox.getChildren().add(firstNameLbl);
-        searchBox.getChildren().add(firstNameTxt);
+        searchBox.getChildren().add(departmentNameLbl);
+        searchBox.getChildren().add(departmentNameTxt);
         searchBox.getChildren().add(seachButton);
 
         searchBox.setAlignment(Pos.BASELINE_LEFT);
 
         this.getChildren().add(searchBox);
         seachButton.setOnAction(event -> {
-            String input = firstNameTxt.getText();
-            ObservableList<Employee> allEmployees = EmployeeController.getEmployees();
+            String input = departmentNameTxt.getText();
+            ObservableList<Departments> allDepartments = DepartmentController.getDepartments();
 
-            ObservableList<Employee> filteredList = FXCollections.observableArrayList();
-            for(Employee emp : allEmployees){
-                if(emp.getFirstName().contains(input)){
-                    filteredList.add(emp);
+            ObservableList<Departments> filteredList = FXCollections.observableArrayList();
+            for(Departments department : allDepartments){
+                if(department.getName().contains(input)){
+                    filteredList.add(department);
                 }
             }
             tableView.setItems(filteredList);
@@ -56,20 +57,14 @@ public class DepartmentsView extends VBox {
 
 
     private void createTable() {
-        TableColumn<Employee, String> firstNameCol = new TableColumn<>("First Name");
-        firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        TableColumn<Departments, String> departmentNameCol = new TableColumn<>("Department Name");
+        departmentNameCol.setCellValueFactory(new PropertyValueFactory<>("departmentName"));
 
-        TableColumn<Employee, String> lastNameCol = new TableColumn<>("Last Name");
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-
-        TableColumn<Employee, Double> salaryCol = new TableColumn<>("Salary");
-        salaryCol.setCellValueFactory(new PropertyValueFactory<>("salary"));
-
-        tableView.getColumns().addAll(firstNameCol, lastNameCol, salaryCol);
+        tableView.getColumns().addAll(departmentNameCol);
 
     }
 
     private void bindTableData() {
-        tableView.setItems(controller.getEmployees());
+        tableView.setItems(controller.getDepartments());
     }
 }

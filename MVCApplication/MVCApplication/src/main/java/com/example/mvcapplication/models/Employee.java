@@ -1,9 +1,16 @@
 package com.example.mvcapplication.models;
 
+import com.example.mvcapplication.database.connectionManager;
+
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Employee {
     private final IntegerProperty id;
@@ -44,11 +51,40 @@ public class Employee {
     }
 
     public static ObservableList<Employee> getAllEmployees(){
-        ObservableList<Employee> employeeData = FXCollections.observableArrayList(
-                new Employee(1, "John", "Doe", 60000.00, 101),
-                new Employee(2, "Jane", "Smith", 75000.00, 102),
-                new Employee(3, "Peter", "Jones", 85000.00, 101)
-        );
-        return employeeData;
+        ObservableList<Employee> employeesData = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM employees";
+
+        try (Connection conn = connectionManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                int employeeID = rs.getInt("employeeID");
+                String firstName = rs.getString("firstName");
+                String lastName = rs.getString("lastName");
+                double salary = rs.getDouble("salary");
+                int departmentID = rs.getInt("departmentID");
+
+                Employee employee = new Employee(employeeID, firstName, lastName, salary, departmentID);
+                employeesData.add(employee);
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return employeesData;
     }
+
+//    public static ObservableList<Employee> getAllEmployees(){
+//        ObservableList<Employee> employeeData = FXCollections.observableArrayList(
+//                new Employee(1, "John", "Doe", 60000.00, 101),
+//                new Employee(2, "Jane", "Smith", 75000.00, 102),
+//                new Employee(3, "Peter", "Jones", 85000.00, 101)
+//        );
+//        return employeeData;
+//    }
 }

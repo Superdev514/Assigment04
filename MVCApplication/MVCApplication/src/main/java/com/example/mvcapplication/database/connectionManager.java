@@ -11,13 +11,13 @@ public class connectionManager {
         String user = "root";
         String password = "";
 
-        try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            return connection;
+        try {
+            return DriverManager.getConnection(url, user, password);
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error connecting to the database", e);
         }
-        return null;
+
     }
 
 

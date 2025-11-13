@@ -11,6 +11,6 @@ public class DepartmentController {
     }
 
     public static ObservableList<Departments> getDepartments() {
-        return Employee.getAllDepartments();
+        return Departments.getAllDepartments();
     }
 }
